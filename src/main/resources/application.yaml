@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    azure:
+      eventhub:
+        connection-string: <EVENT_HUB_CONNECTION_STRING>
+        checkpoint-storage-account: event-hub-checkpoints-storage
+        checkpoint-access-key: <STORAGE_ACCOUNT_ACCESS_KEY>
+    stream:
+      function:
+        definition: produce;uppercase;consume
+      bindings:
+        produce-out-0:
+          destination: event-hub-a
+        uppercase-in-0:
+          destination: event-hub-a
+          group: $Default
+        uppercase-out-0:
+          destination: event-hub-b
+        consume-in-0:
+          destination: event-hub-b
+          group: $Default
